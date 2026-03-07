@@ -207,7 +207,7 @@
 
   {#if correct}
     <div class="sp_answer">
-      <span dir="ltr" class="sp">{encode(task.l2)}</span>
+      <span dir="ltr" class="sp">{@html encode(task.l2)}</span>
     </div>
   {/if}
 
