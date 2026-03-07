@@ -169,6 +169,7 @@
   }
   .sp_answer {
     padding: 0 15px;
+    line-break: anywhere;
   }
   .unused {
     min-height: 60px;
