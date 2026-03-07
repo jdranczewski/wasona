@@ -2,9 +2,11 @@
   import { onMount } from "svelte";
   import { tokeniseSentence, type Task } from "@/lib/exercise";
   import { KALAMA } from "@/lib/audio";
+  import { encode } from "@/lib/ucsur";
 
   export let task: Task;
   export let locked: boolean;
+  export let correct: boolean;
   export let setAssembledSentence: (words: string[]) => void;
 
   let words: string[] = [];
@@ -130,6 +132,12 @@
     {/each}
   </div>
 
+  {#if correct}
+    <div class="sp_answer">
+      <span dir="ltr" class="sp">{encode(task.l2)}</span>
+    </div>
+  {/if}
+
   <!-- Unused chips -->
   <div class="unused" on:dragover|preventDefault on:drop={onDropUnused}>
     {#each words as word, i}
@@ -158,6 +166,9 @@
     /* border-radius: 8px; */
     border-top: 2px dotted var(--grey);
     border-bottom: 2px dotted var(--grey);
+  }
+  .sp_answer {
+    padding: 0 15px;
   }
   .unused {
     min-height: 60px;

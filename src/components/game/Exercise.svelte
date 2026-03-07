@@ -18,6 +18,7 @@
   let assembledSentence: string[] = [];
   let statusMessage: string | null = null;
   let checked = false;
+  let correct = false;
   let allDone = false;
 
   let sfx_yes: HTMLAudioElement | null = null;
@@ -50,9 +51,11 @@
 
     if (verifyChips(currentTask, assembledSentence)) {
       statusMessage = _("correct");
+      correct = true;
       sfx_yes?.play();
     } else {
       statusMessage = `${_("incorrect")} "${currentTask.l2}"`;
+      correct = false;
       taskQueue = [...taskQueue, taskQueue[currentIndex]];
       sfx_no?.play();
     }
@@ -66,6 +69,7 @@
       assembledSentence = [];
       statusMessage = null;
       checked = false;
+      correct = false;
     } else {
       allDone = true;
       if (nextTab) {
@@ -107,6 +111,7 @@
           setAssembledSentence={(words: string[]) =>
             (assembledSentence = words)}
           locked={checked}
+          correct={correct}
         />
       {/if}
 
