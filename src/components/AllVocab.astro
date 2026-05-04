@@ -1,0 +1,23 @@
+---
+import List from "@/components/List.astro";
+import Word from "@/components/Word.astro";
+import Card from "@/components/Card.astro";
+
+const modules = Object.values(
+  import.meta.glob('../../content/en/**/*.mdx', { eager: true })
+);
+const allUses = modules.flatMap((mod) => mod.frontmatter || []);
+---
+
+{allUses.map((w) => (
+    <>{w.practice && (
+        <Card url={w.slug} />
+        <>{w.practice.map((exercise) => (
+            <>{exercise.tasks[0].l2.split(" ").length == 1 && (
+                <List>{exercise.tasks.map((task) => (
+                    <Word sl={task.l2} m={task.l1} />
+                ))}</List>
+            )}</>
+        ))}</>
+    )}</>
+))}
